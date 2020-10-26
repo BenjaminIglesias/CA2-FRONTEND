@@ -1,14 +1,15 @@
 const htmlContentFacade = {
      readyPageAndaddHtml,
      addHTMLAfterEnd,
-     fillTable,
      makeTableAllPersons,
      addApiDocumentation,
      addAboutUs,
      makeGetButtonGroup,
      addInputGroup,
      addOrEditPersonForm,
-     addTop
+     addTop,
+     makeTableAllCity,
+     addHobbyCountHolder
 }
 //Gør siden klar og tilføjer den html den før som argument
 function readyPageAndaddHtml(html){
@@ -117,13 +118,18 @@ function addInputGroup(id,textBefore){
     '       <b>'+textBefore+':</b>  '  + 
     '       </div>  '  + 
     '       <div class="form-group mx-sm-3 mb-2">  '  + 
-    '         <input type="text" class="form-control" id="'+id+'" placeholder="Insert Value Here">  '  + 
+    '         <input type="text" class="form-control" id="inputValue" placeholder="Insert Value Here">  '  + 
     '       </div>  '  + 
-    '       <button type="submit" class="btn btn-primary mb-2">Submit</button>  '  + 
+    '       <button type="submit" class="btn btn-primary mb-2" id="'+id+'">Submit</button>  '  + 
     '    </form>  ' ; 
 }
 
-
+function addHobbyCountHolder(){
+    return '<div id="countChangeMe">' +
+    '</div>' +
+    'has that hobby'
+    
+}
 
 function addAboutUs(){
     return  '     '  + 
@@ -171,24 +177,6 @@ function addAboutUs(){
     '    ' ; 
 }
 
-function makeGetHtml(){
-return   '   <div class="form-group">  '  + 
-'     <label for="usr">Name:</label>  '  + 
-'     <input type="text" class="form-control" id="usr">  '  + 
-'  </div>  '  +'   <button type="button" class="btn btn-primary btn-lg">Large button</button>  '  + 
-'    ' +  makeTable(); 
-}
-function makePostHtml(){
-    return makeTable();
-}
-
-function makePutHtml(){
-    return makeTable();
-}
-
-function makeDeleteHtml(){
-    return makeTable();
-}
 
 function makeGetButtonGroup(){
     return   '   <div class="btn-group" role="group" aria-label="Basic example">  '  + 
@@ -204,57 +192,68 @@ function makeGetButtonGroup(){
 }
 
 
-function makeTableAllPersons(content){
+function makeTableAllPersons(){
     return   '   <div style="height: 250px;overflow: scroll;">  '  + 
     '   <table class="table">  '  + 
     '     <thead class="thead-dark">  '  + 
     '       <tr>  '  + 
-    '         <th scope="col">ID</th>  '  + 
     '         <th scope="col">Name</th>  '  + 
     '         <th scope="col">Email</th>  '  + 
-    '         <th scope="col">Phone</th>  '  + 
-    '         <th scope="col">Hobby Name</th>  '  +
-    '         <th scope="col">Category</th>  '  +
-    '         <th scope="col">Type</th>  '  +
     '         <th scope="col">Street</th>  '  +
-    '         <th scope="col">City</th>  '  +
     '         <th scope="col">Zip Code</th>  '  +        
-    '       </tr>  '  + 
-    '     </thead>  '  + 
-      '       <tr>  '  + 
-    '         <th scope="row">1</th>  '  + 
-    '         <td>Mark</td>  '  + 
-    '         <td>Otto</td>  '  + 
-    '         <td>@mdo</td>  '  + 
-    '         <td>Mark</td>  '  + 
-    '         <td>Otto</td>  '  + 
-    '         <td>@mdo</td>  '  + 
-    '         <td>Mark</td>  '  + 
-    '         <td>Otto</td>  '  + 
-    '         <td>@mdo</td>  '  + 
-    '       </tr>  '  + 
-    + content+
+    '         <th scope="col">City</th>  '  +
+    '         <th scope="col">Phone</th>  '  + 
+    '         <th scope="col">Phone Description</th>  '  + 
+    '         <th scope="col">Hobby Name</th>  '  +
+    '         <th scope="col">Wiki-Link</th>  '  +
+    '         <th scope="col">Type</th>  '  +
+      '       </tr>  '  + 
+    '<tbody id="allUserRows">'+
+    '</tbody>'+
 
     '     </tbody>  '  + 
     '   </table>  '  + 
     '  </div>  ' ; 
 }
 
-function fillTable(users){
-   
-        const userRows = users.map(user => `
-        <tr>
-        <td>${user.id}</td>
-        <td>${user.age}</td>
-        <td>${user.age}</td>   
-        <td>${user.age}</td>       
-        </tr>
-        `)
-        const userRowsAsString = userRows.join("");
-        document.getElementById("allUserRows").innerHTML = userRowsAsString; }
+function makeTableAllCity(){
+    return   '   <div style="height: 250px;overflow: scroll;">  '  + 
+    '   <table class="table">  '  + 
+    '     <thead class="thead-dark">  '  + 
+    '       <tr>  '  + 
+    '         <th scope="col">Zip Code</th>  '  + 
+    '         <th scope="col">City</th>  '  + 
+    '<tbody id="allUserRows">'+
+    '</tbody>'+
 
+    '     </tbody>  '  + 
+    '   </table>  '  + 
+    '  </div>  ' ; 
+}
 
+function makeTableAllwithHobby(){
+    return   '   <div style="height: 250px;overflow: scroll;">  '  + 
+    '   <table class="table">  '  + 
+    '     <thead class="thead-dark">  '  + 
+    '       <tr>  '  + 
+    '         <th scope="col">Name</th>  '  + 
+    '         <th scope="col">Email</th>  '  + 
+    '         <th scope="col">Street</th>  '  +
+    '         <th scope="col">Zip Code</th>  '  +        
+    '         <th scope="col">City</th>  '  +
+    '         <th scope="col">Phone</th>  '  + 
+    '         <th scope="col">Phone Description</th>  '  + 
+    '         <th scope="col">Hobby Name</th>  '  +
+    '         <th scope="col">Wiki-Link</th>  '  +
+    '         <th scope="col">Type</th>  '  +
+      '       </tr>  '  + 
+    '<tbody id="allUserRows">'+
+    '</tbody>'+
 
+    '     </tbody>  '  + 
+    '   </table>  '  + 
+    '  </div>  ' ; 
+}
 
 function addApiDocumentation(){
     return  '  <div class="c32"><h1 class="c29" id="h.qgvkn31x7j8w"><span class="c25 c41">Rest Api Documentation</span></h1><p class="c3 c5"><span class="c17 c25"></span></p><a id="t.cc5a03e462079b92763abb97f230892e1fe4faee"></a><a id="t.0"></a><table class="c8"><tbody><tr class="c36"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c28">Method</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c18"><span class="c28">URL</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c18"><span class="c28">Request Body (JSON)</span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c18"><span class="c28">Response (JSON)</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c18"><span class="c28">Error (e)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c3"><span class="c1">GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/hobby/{hobby}</span></p><p class="c3"><span class="c9">hobby: All persons having that hobby</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c3 c5"><span class="c0"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3"><span class="c14 c34 c38">[{person (1)}, {person (1)}, ...]</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2 c17">(e3)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c3"><span class="c1">GET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/{id} &nbsp; </span></p><p class="c3"><span class="c9">Id: All &nbsp;info of specified Person: Person, Hobby, Address, CityInfo, Phone. &nbsp;</span><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c3 c5"><span class="c17 c2"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3"><span class="c22 c14">person (1)</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e1)</span></p></td></tr><tr class="c19"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c1">GET</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/phone/{phone number}</span></p><p class="c3"><span class="c9">Phone number: A persons phone number</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c3 c5"><span class="c13"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3"><span class="c14 c34">person (1</span><span class="c2">)</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c17 c2">(e4)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c14">GET</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c2 c39">/api/persons/hobby/{hobby}/count</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c18 c5"><span class="c13"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3"><span class="c2">number</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e3)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c1">GET</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/zip</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c18 c5"><span class="c13"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3"><span class="c22 c14">[city, city, &hellip;](3)</span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e3)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c1">POST</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c3"><span class="c14 c34">person (2)</span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3 c5"><span class="c17 c2"></span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e2)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c1">PUT</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/{id}</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c3"><span class="c14 c34">person (2)</span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3 c5"><span class="c17 c2"></span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e1)</span></p></td></tr><tr class="c4"><td class="c15" colspan="1" rowspan="1"><p class="c18"><span class="c1">DELETE</span></p></td><td class="c6" colspan="1" rowspan="1"><p class="c3"><span class="c0">/api/persons/{id}</span></p><p class="c3"><span class="c9">Id: A person id</span></p></td><td class="c16" colspan="1" rowspan="1"><p class="c18 c5"><span class="c13"></span></p></td><td class="c23" colspan="1" rowspan="1"><p class="c3 c5"><span class="c14 c22"></span></p></td><td class="c11" colspan="1" rowspan="1"><p class="c3"><span class="c2">(e1)</span></p></td></tr></tbody></table><p class="c3"><span class="c13">&nbsp;</span></p><h4 class="c24" id="h.mvpfb47p0c55"><span class="c12">Request Body and Response Formats</span></h4><p class="c3"><span class="c10">person (1) </span></p><p class="c3"><span class="c2 c27">&nbsp;</span><span class="c0">{<br> &nbsp; &nbsp;&quot;id&quot;: Number,<br> &nbsp; &nbsp;&quot;age&quot;: Number,<br> &nbsp; &nbsp;&quot;name&quot;: String,<br> &nbsp; &nbsp;&quot;gender&quot;: String [&ldquo;male&rdquo; | &ldquo;Female&rdquo;],<br> &nbsp; &nbsp;&quot;email&quot;: String (email),</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;hobby&quot;:{<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;name&quot;: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&quot;description&quot;: String<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;phone&quot;:{[<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;number&quot;: Number,<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;description&quot;: String<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]},</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;address&quot;:{<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;street&quot;: String,<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;additionalInfo&quot;: String,</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&quot;cityInfo&quot;:{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&quot;zipCode&quot;: Number,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&quot;city&quot;: String<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></p><p class="c3 c20 c31"><span class="c0">}</span></p><p class="c3"><span class="c0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p><p class="c3"><span class="c21">person (2)</span><span class="c17 c25">&nbsp; Person format in PUT doesn&#39;t need every key/value</span></p><p class="c3"><span class="c2 c27">&nbsp;</span><span class="c0">{<br> &nbsp; &nbsp;&quot;age&quot;: Number,<br> &nbsp; &nbsp;&quot;name&quot;: String,<br> &nbsp; &nbsp;&quot;gender&quot;: String [&ldquo;male&rdquo; | &ldquo;Female&rdquo;],<br> &nbsp; &nbsp;&quot;email&quot;: String (email),</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;hobby&quot;:{<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;name&quot;: String,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&quot;description&quot;: String<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;phone&quot;:{[<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;number&quot;: Number,<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;description&quot;: String<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]},</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp;&quot;address&quot;:{<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;street&quot;: String,<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&quot;additionalInfo&quot;: String,</span></p><p class="c3"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&quot;zipCode&quot;: Number</span></p><p class="c3 c20 c31"><span class="c0">}</span></p><p class="c3 c5"><span class="c17 c25"></span></p><p class="c3 c5"><span class="c0"></span></p><p class="c3 c5"><span class="c0"></span></p><p class="c3"><span class="c10">city (3) </span></p><p class="c3"><span class="c2 c27">[</span><span class="c0">{<br> &quot;zipCode&quot;: Number,</span></p><p class="c3"><span class="c2 c39">&nbsp;&quot;city&quot;: String<br>}]</span></p><h4 class="c24" id="h.34uok9x9bjea"><span class="c12">Errors</span></h4><p class="c3"><span class="c17 c25">(e) All errors are reported using this format (with the HTTP-status code matching the number)</span></p><p class="c37"><span class="c26 c2">{ status : statusCode, &quot;msg&quot;: &quot;Explains the problem&quot; }</span></p><p class="c3 c5"><span class="c7"></span></p><ul class="c42 lst-kix_g80z00byudwm-0 start"><li class="c3 c20 c30"><span class="c25 c40">(e1) :</span><span class="c26 c2">{ status : 404, &quot;msg&quot;: &quot;No person found with the provided ID&quot; }</span></li><li class="c3 c20 c30"><span class="c25 c40">(e2) :</span><span class="c26 c2">{ status : 400, &quot;msg&quot;: &quot;Field &lsquo;xxx&rsquo; is required&quot; } (for example, no name provided)</span></li><li class="c3 c20 c30"><span class="c25 c40">(e3) :</span><span class="c26 c2">{ status : 400, &quot;msg&quot;: &quot;An error occurred in retrieving data from the server. Please try again later&quot; } </span></li><li class="c3 c20 c30"><span class="c25 c40">(e4) :</span><span class="c26 c2">{ status : 404, &quot;msg&quot;: &quot;No person found with the provided phone number&quot; }</span></li></ul><p class="c3 c5 c20"><span class="c2 c26"></span></p><p class="c3 c5"><span class="c26 c2 c35"></span></p><p class="c3 c5"><span class="c13"></span></p></div>  ' ; 

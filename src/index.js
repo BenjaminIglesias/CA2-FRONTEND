@@ -5,7 +5,8 @@ import "./htmlContentFacade"
 import htmlContentFacade from "./htmlContentFacade"
 import "./fetchFacade"
 import fetchFacade from "./fetchFacade"
-
+import "./URLFacade"
+import URLFacade from "./URLFacade"
 function clear(){
   var divClear = document.getElementById('change');
   while(divClear.firstChild){
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', initializeSite(), false);
     var div;
     document.body.appendChild(div = document.createElement('div'));
     div.setAttribute("id", "change");
+  
+ 
   }
 }
 
@@ -42,23 +45,47 @@ document.getElementById("aboutUsBtn").addEventListener("click", function() {
 //Used for button group under Get
 document.addEventListener('click',function(e){
   if(e.target && e.target.id== 'getAll'){
-    htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons());        
+    htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons(fetchFacade.getPersons()));        
    }else if(e.target && e.target.id== 'getAllHobby'){
-    htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons());
-}else if(e.target && e.target.id== 'getAllCity'){
-  console.log("hey");
-
+    htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons() + htmlContentFacade.addInputGroup("hobbyNameInput","Enter name and get all with given hobby"));
+  }else if(e.target && e.target.id== 'getAllCity'){
+    htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllCity() ,  fetchFacade.getAllCities());        
 }else if(e.target && e.target.id== 'getCountHobby'){
-  console.log("hey");
+  htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() +  htmlContentFacade.addInputGroup("hobbyNameInputCount","Enter name and get count of given hobby"));
 
 }else if(e.target && e.target.id== 'getById'){
-  console.log("hey");
-
+  htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons() + htmlContentFacade.addInputGroup("idInput","Enter id and get given user"));
 }else if(e.target && e.target.id== 'getByPhone'){
-  console.log("hey");
+  htmlContentFacade.readyPageAndaddHtml(htmlContentFacade.makeGetButtonGroup() + htmlContentFacade.makeTableAllPersons() + htmlContentFacade.addInputGroup("phoneInput","Enter phonenumber and get given user"));
+
 }});  
 
+
+document.addEventListener('click',function(e){
+if (e.target && e.target.id == "deleteInput"){
+  fetchFacade.deleteUser(document.getElementById("inputValue").value);
   
+}
+});
+  
+document.addEventListener('click',function(e){
+  if (e.target && e.target.id == "hobbyNameInput"){
+    fetchFacade.getPersonsWithHobby(document.getElementById("inputValue").value);
+    
+  }else if (e.target && e.target.id == "hobbyNameInputCount"){
+    htmlContentFacade.readyPageAndaddHtml( htmlContentFacade.addHobbyCountHolder());
+    fetchFacade.getPersonsWithHobbyCount(document.getElementById("inputValue").value);
+    
+  }else if (e.target && e.target.id ==  "idInput"){
+    console.log(document.getElementById("inputValue").value);
+    fetchFacade.getPersonsWitId(document.getElementById("inputValue").value);  
+  }else if (e.target && e.target.id ==  "phoneInput"){
+  console.log(document.getElementById("inputValue").value);
+  fetchFacade.getPersonsByPhone(document.getElementById("inputValue").value);  
+}
+  });
+
+
 (function() {
   'use strict';
   window.addEventListener('load', function() {
